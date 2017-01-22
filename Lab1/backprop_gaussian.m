@@ -1,4 +1,4 @@
-function [v,w,error] = backprop_gaussian(patterns, targets, hidden, alpha, eta, epochs, gridsize, x, y)
+function [v,w,error] = backprop_gaussian(patterns, targets, hidden, alpha, eta, epochs, gridsize, x, y, plot)
     [outsize, ndata] = size(targets);
     [insize, ndata] = size(patterns); 
     w = randn(hidden, insize + 1); 
@@ -24,17 +24,15 @@ function [v,w,error] = backprop_gaussian(patterns, targets, hidden, alpha, eta, 
         dv = (dv .* alpha) - (delta_o * hout') .* (1-alpha);
         w = w + dw .* eta;
         v = v + dv .* eta;
-        error(epoch) = sum(sum(abs(sign(out) - targets)./2));
-        
-        if (mod(epoch,100)== 0)
-            fprintf('Epochs: #%d\n', epoch);
-        end
+        error(epoch) = sum(sum(abs((out) - targets)));
         %% Plot change
-        zz = reshape(out, gridsize, gridsize);
-        mesh(x,y,zz);
-        axis([-5 5 -5 5 -0.7 0.7]);
-        drawnow;
-
+        if (plot)
+            if (mod(epoch,100)== 0) fprintf('Epochs: #%d\n', epoch); end
+            zz = reshape(out, gridsize, gridsize);
+            mesh(x,y,zz);
+            axis([-5 5 -5 5 -0.7 0.7]);
+            drawnow;
+        end
     end
 end
 

@@ -9,5 +9,5 @@ function [patterns, targets, gridsize, x, y, z] = gaussiandata()
     [xx, yy] = meshgrid (x, y);
 
     patterns = [reshape(xx, 1, ndata); reshape(yy, 1, ndata)];
-    gridsize = z_row;
+    gridsize = z_row;   
 end
