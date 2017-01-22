@@ -1,3 +1,5 @@
+Encoding signs
+
 Error=0
 
 sign(w) =
